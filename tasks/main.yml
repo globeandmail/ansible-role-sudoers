@@ -11,6 +11,6 @@
 
 
 - name: include distro specific tasks
-  include: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+  include_tasks: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
   when: ( sudoers is defined ) or
         ( sudoers_d is defined )
