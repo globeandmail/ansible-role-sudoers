@@ -1,10 +1,10 @@
 ---
-- name: Ubuntu 16 | display the sudoers src file
+- name: Ubuntu 18 | display the sudoers src file
   debug:
    msg='{{ sudoers | default("sudoers variable not defined") }}'
 
 
-- name: Ubuntu 16 | copy the main sudoers file to /etc/sudoers
+- name: Ubuntu 18 | copy the main sudoers file to /etc/sudoers
   template:
    src={{ sudoers }}
    dest=/etc/sudoers
@@ -15,12 +15,12 @@
   when: sudoers is defined
 
 
-- name: Ubuntu 16 | display the source of sudoers.d directory
+- name: Ubuntu 18 | display the source of sudoers.d directory
   debug:
    msg='{{ sudoers_d | default("sudoers_d variable not defined") }}'
 
 
-- name: Ubuntu 16 | copy additional configs to sudoers.d
+- name: Ubuntu 18 | copy additional configs to sudoers.d
   template:
    src={{ item }}
    dest=/etc/sudoers.d/{{ item | basename }}
