@@ -2,7 +2,7 @@
 - name: check for supported operating system on target
   fail:
     msg: "the operating system of the target machine ({{ inventory_hostname }}) is not currently supported."
-  when: ( ansible_distribution != "Ubuntu" and ansible_distribution_major_version not in [14, 16] )
+  when: ( ansible_distribution != "Ubuntu" and ansible_distribution_major_version not in [14, 16, 18] )
 
 
 # Optional use if needed

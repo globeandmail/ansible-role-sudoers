@@ -1,0 +1,32 @@
+---
+- name: Ubuntu 18 | display the sudoers src file
+  debug:
+   msg='{{ sudoers | default("sudoers variable not defined") }}'
+
+
+- name: Ubuntu 18 | copy the main sudoers file to /etc/sudoers
+  template:
+   src={{ sudoers }}
+   dest=/etc/sudoers
+   validate='visudo -cf %s'
+   owner=root
+   group=root
+   mode=0440
+  when: sudoers is defined
+
+
+- name: Ubuntu 18 | display the source of sudoers.d directory
+  debug:
+   msg='{{ sudoers_d | default("sudoers_d variable not defined") }}'
+
+
+- name: Ubuntu 18 | copy additional configs to sudoers.d
+  template:
+   src={{ item }}
+   dest=/etc/sudoers.d/{{ item | basename }}
+   validate='visudo -cf %s'
+   owner=root
+   group=root
+   mode=0440
+  with_fileglob:
+   - "{{ sudoers_d | default([]) }}/*"
